@@ -1,9 +1,6 @@
 package com.kpi.acts.OPCourseWork.model;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Menu {
     private Integer menuId;
@@ -31,6 +28,11 @@ public class Menu {
         menuElementsList.add(menuElement);
     }
 
+    public void removeMenuElement(MenuElement menuElement)
+    {
+        menuElementsList.remove(menuElement);
+    }
+
     public Integer getMenuId() {
         return menuId;
     }
@@ -45,5 +47,20 @@ public class Menu {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Menu menu = (Menu) o;
+        return Objects.equals(menuId, menu.menuId)
+                && Objects.equals(name, menu.name)
+                && Objects.equals(menuElementsList, menu.menuElementsList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(menuId, name, menuElementsList);
     }
 }

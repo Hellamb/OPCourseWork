@@ -1,7 +1,6 @@
 package com.kpi.acts.OPCourseWork.dao.inmemory;
 
 import com.kpi.acts.OPCourseWork.dao.MenuDao;
-import com.kpi.acts.OPCourseWork.dao.MenuElementDao;
 import com.kpi.acts.OPCourseWork.model.Menu;
 import com.kpi.acts.OPCourseWork.model.MenuElement;
 
@@ -19,9 +18,19 @@ public class InMemoryMenuDao extends InMemoryAbstractDao<Menu> implements MenuDa
     }
 
     @Override
-    public void removeMenu(Integer menuId) {
-        Menu menu = this.get(menuId);
-        if(menuId == null) return;
+    public void removeMenu(Menu menu) {
         this.delete(menu);
     }
+
+    @Override
+    public void addMenuElement(Menu menu, String name, String imageUrl, Integer price) {
+        MenuElement menuElement = new MenuElement(name, imageUrl, price);
+        menu.addMenuElement(menuElement);
+    }
+
+    @Override
+    public void removeMenuElement(Menu menu, MenuElement menuElement) {
+        menu.removeMenuElement(menuElement);
+    }
+
 }

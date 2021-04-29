@@ -1,0 +1,39 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Hellamb
+  Date: 28.04.2021
+  Time: 19:23
+  To change this template use File | Settings | File Templates.
+--%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<header>
+    <div class="head1">
+        <p class="website-name">MENU 4 U</p>
+    </div>
+    <div class="head1">
+        <div class="navigation">
+            <a href="menu">Menu</a>
+            <c:if test="${!isAdmin}">
+                <a href="toMyOrder">My order</a>
+            </c:if>
+            <c:if test="${isAdmin}">
+                <a href="toCustomerOrders">Orders</a>
+                <a href="toMenuEditor">Edit menu</a>
+            </c:if>
+        </div>
+        <div class="login">
+            <c:if test="${!isAdmin}">
+                <form action="adminLogin" method="post">
+                    <input type="password" name="adminPassword">
+                    <input type="submit" value="Admin">
+                </form>
+            </c:if>
+            <c:if test="${isAdmin}">
+                <form action="adminLogout" method="post">
+                    <input type="submit" value="Logout">
+                </form>
+            </c:if>
+        </div>
+    </div>
+</header>

@@ -6,11 +6,13 @@ public class MenuElement {
     private String name;
     private String imageUrl;
     private Integer price;
+    private String description;
 
-    public MenuElement(String name, String imageUrl, Integer price) {
+    public MenuElement(String name, String imageUrl, Integer price, String description) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.price = price;
+        this.description = description;
     }
 
     public String getName() {
@@ -37,6 +39,14 @@ public class MenuElement {
         this.price = price;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,5 +58,15 @@ public class MenuElement {
     @Override
     public int hashCode() {
         return Objects.hash(name, imageUrl, price);
+    }
+
+    @Override
+    public String toString() {
+        return "MenuElement{" +
+                "name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

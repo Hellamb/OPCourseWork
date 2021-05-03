@@ -23,8 +23,8 @@ public class InMemoryMenuDao extends InMemoryAbstractDao<Menu> implements MenuDa
     }
 
     @Override
-    public void addMenuElement(Menu menu, String name, String imageUrl, Integer price) {
-        MenuElement menuElement = new MenuElement(name, imageUrl, price);
+    public void addMenuElement(Menu menu, String name, String imageUrl, Integer price, String description) {
+        MenuElement menuElement = new MenuElement(name, imageUrl, price, description);
         menu.addMenuElement(menuElement);
     }
 

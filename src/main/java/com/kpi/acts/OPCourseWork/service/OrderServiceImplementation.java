@@ -6,6 +6,7 @@ import com.kpi.acts.OPCourseWork.model.Order;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 public class OrderServiceImplementation implements OrderService{
 
@@ -36,7 +37,27 @@ public class OrderServiceImplementation implements OrderService{
     }
 
     @Override
-    public void addOrder(Integer tableNumber, String customerName, HashMap<MenuElement, Integer> orderedElements) {
-        daoFactory.getOrderDao().addOrder(tableNumber, customerName,orderedElements);
+    public void addOrder(Map<String,String[]> params) {
+        Integer tableNumber = Integer.parseInt(params.get("tableNumber")[0]);
+        String customerName = params.get("customerName")[0];
+        int size = params.get("name").length;
+        HashMap<MenuElement, Integer> orderedElements = new HashMap<>();
+        for(int i=0;i<size;i++)
+        {
+            String name = params.get("name")[i];
+            String imageUrl = params.get("imageUrl")[i];
+            Integer price = Integer.parseInt(params.get("price")[i]);
+            String description = params.get("description")[i];
+            Integer elementCount = Integer.parseInt(params.get("elementCount")[i]);
+            if(elementCount>0)
+            {
+               MenuElement elem = new MenuElement(name, imageUrl, price, description);
+               orderedElements.put(elem, elementCount);
+            }
+        }
+        if(orderedElements.isEmpty()) {
+            throw new IllegalArgumentException("Замовлення порожнє");
+        }
+        daoFactory.getOrderDao().addOrder(tableNumber, customerName, orderedElements);
     }
 }

@@ -56,7 +56,7 @@ public class OrderServiceImplementation implements OrderService{
             }
         }
         if(orderedElements.isEmpty()) {
-            throw new IllegalArgumentException("Замовлення порожнє");
+            throw new IllegalArgumentException("Order is empty");
         }
         daoFactory.getOrderDao().addOrder(tableNumber, customerName, orderedElements);
     }

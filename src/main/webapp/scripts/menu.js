@@ -1,34 +1,13 @@
-let menuElements = document.querySelectorAll('.menu-element-main')
+let plusButtons = document.querySelectorAll('.order-plus-button')
+let minusButtons = document.querySelectorAll('.order-minus-button')
 
-menuElements.forEach(element=> element.addEventListener('click',openCloseMenu))
+plusButtons.forEach(element=> element.addEventListener('click',plusButtonFunc))
+minusButtons.forEach(element=> element.addEventListener('click',minusButtonFunc))
 
-function openCloseMenu()
-{
- let element = this.parentElement;
- if(element.getAttribute("extended") =="true")
- {
-   element.lastChild.remove();
-   element.setAttribute("extended","false");
- }
- else
- {
-   let div = document.createElement('div');
-   div.setAttribute("class","extendedMenuElement");
-   div.innerHTML=
-      "<button type='button' class='order-minus-button'>-</button>"+
-      "<p class='menu-element-count-decor'>0</p>"+
-      "<button type='button' class='order-plus-button'>+</button>";
-   element.appendChild(div);
-   element.setAttribute("extended","true");
-   let count = element.getElementsByClassName('menu-element-count')[0].getAttribute('value')
-   element.getElementsByClassName('menu-element-count-decor')[0].innerText = Number(count)
-   element.getElementsByClassName('order-minus-button')[0].addEventListener('click',minusButtonFunc)
-   element.getElementsByClassName('order-plus-button')[0].addEventListener('click',plusButtonFunc)
- }
-}
+
 function plusButtonFunc()
 {
-  let element = this.parentElement;
+  let element = this.parentElement.parentElement;
   let realCountElem = element.parentElement.getElementsByClassName('menu-element-count')[0];
   let fakeCountElem = element.getElementsByClassName('menu-element-count-decor')[0];
   let count = Number(realCountElem.getAttribute('value'));
@@ -39,7 +18,7 @@ function plusButtonFunc()
 }
 function minusButtonFunc()
 {
- let element = this.parentElement;
+ let element = this.parentElement.parentElement;
  let realCountElem = element.parentElement.getElementsByClassName('menu-element-count')[0];
  let fakeCountElem = element.getElementsByClassName('menu-element-count-decor')[0];
  let count = Number(realCountElem.getAttribute('value'));

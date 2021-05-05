@@ -12,4 +12,8 @@
             120
         </session-timeout>
     </session-config>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/jsp/error404.jsp</location> <!-- /src/main/webapp/error-404.html-->
+    </error-page>
 </web-app>

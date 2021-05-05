@@ -8,33 +8,47 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/header.css">
-<header>
-    <div class="head1">
-        <p class="website-name">MENU 4 U</p>
-    </div>
-    <div class="head1">
-        <div class="navigation">
-            <a href="menu">Menu</a>
-            <c:if test="${!isAdmin}">
-                <a href="toMyOrder">My order</a>
-            </c:if>
-            <c:if test="${isAdmin}">
-                <a href="toCustomerOrders">Orders</a>
-                <a href="toMenuEditor">Edit menu</a>
-            </c:if>
+</div>
+    <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" role="navigation">
+        <div class="container-fluid">
+                <a class="navbar-brand" href="#">MENU 4 U</a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+                data-bs-target="#navigation" aria-controls="navigation-1" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse" id="navigation">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="menu">Menu</a>
+                    </li>
+                    <c:if test="${!isAdmin}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="toMyOrder">My order</a>
+                        </li>
+                    </c:if>
+
+                    <c:if test="${isAdmin}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="toCustomerOrders">Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="toMenuEditor">Edit menu</a>
+                        </li>
+                    </c:if>
+                </ul>
+                <c:if test="${!isAdmin}">
+                        <form class="d-flex" action="adminLogin" method="post">
+                                <input class="form-control form-control-sm" type="password" name="adminPassword" required placeholder="password">
+                            <button class="btn btn-outline-success" type="submit">Admin</button>
+                        </form>
+                </c:if>
+                <c:if test="${isAdmin}">
+                    <form class="d-flex" action="adminLogout" method="post">
+                        <button class="btn btn-outline-success" type="submit">Logout</button>
+                    </form>
+                </c:if>
+
+            </div>
         </div>
-        <div class="login">
-            <c:if test="${!isAdmin}">
-                <form action="adminLogin" method="post">
-                    <input type="password" name="adminPassword" required placeholder="пароль">
-                    <input type="submit" value="Admin">
-                </form>
-            </c:if>
-            <c:if test="${isAdmin}">
-                <form action="adminLogout" method="post">
-                    <input type="submit" value="Logout">
-                </form>
-            </c:if>
-        </div>
-    </div>
-</header>
+    </nav>
+

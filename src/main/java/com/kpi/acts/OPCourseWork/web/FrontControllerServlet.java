@@ -69,9 +69,13 @@ public class FrontControllerServlet extends HttpServlet {
                 case "/setTable":
                     setTable(request, response);
                     break;
-                case "":
-                default:
+                case "/":
+                case "/menu":
                     menu(request, response);
+                    break;
+                default:
+                    //menu(request, response);
+                    response.sendError(404);
                     break;
 
             }
@@ -92,14 +96,12 @@ public class FrontControllerServlet extends HttpServlet {
         }
         if(! isTestData){
             isTestData = true;
-            menuService.addMenu("My menu 1");
-            menuService.addMenu("My menu 2");
+            menuService.addMenu("Dishes");
             for (Menu menu: menus)
             {
-                menuService.addMenuElement(menu,"Dish for 10", "url", 10,"Description for 10");
-                menuService.addMenuElement(menu,"Dish for 15", "url", 15,"Description for 15");
-                menuService.addMenuElement(menu,"Dish for 20", "url", 20,"Description for 20");
-                menuService.addMenuElement(menu,"Dish for 25", "url", 25,"Description for 25");
+                menuService.addMenuElement(menu,"Potato", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiOh-exQ8yWBtkDCv0MTjTbHboqkRDwJOtnQ&usqp=CAU", 3,"Delicious fried potatoes are an incredibly popular recipe. And this is more true than ever, because the recipe for fried potatoes is simple, always delicious and infinitely varied. Fried potatoes with onions and fried potatoes with bacon, fried young potatoes with garlic, fried potatoes with an egg and fried potatoes with stew are recipes familiar and loved from childhood, when fried potatoes appeared on the table so often. A recipe with a photo will remind you of the options for its preparation and offer new ones, no less tasty.\n");
+                menuService.addMenuElement(menu,"Pizza", "https://media.dominos.ua/__sized__/menu/product_osg_image_category/2020/12/28/Vetchina_i_griby_-thumbnail-960x960-70.jpg", 5,"Pizza is a national Italian dish, which is a round open flatbread topped with melted cheese (usually mozzarella) and tomatoes. Cheese is by far the main ingredient in pizza. The rest of the ingredients differ depending on the type of pizza. Today, pizza is one of the most popular dishes in the world.\n");
+                menuService.addMenuElement(menu,"Soup", "https://www.fifteenspatulas.com/wp-content/uploads/2016/02/Chicken-Noodle-Soup-Fifteen-Spatulas-3-640x427.jpg", 4,"This quick Chicken Noodle Soup recipe is perfect when you want a hot bowl of comfort but don’t want to slave over the stove for hours. It has the simple, clean flavors you expect from this classic soup.");
             }
         }
         request.getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(request, response);
@@ -111,7 +113,7 @@ public class FrontControllerServlet extends HttpServlet {
 
         String password = request.getParameter("adminPassword");
         if(!password.equals("admin")) {
-            error(request,response,"Пароль не вірний");
+            error(request,response,"Password incorrect");
         }
         else{
             request.getSession().setAttribute("isAdmin", true);
@@ -131,7 +133,7 @@ public class FrontControllerServlet extends HttpServlet {
     {
         if(!(boolean)request.getSession().getAttribute("isAdmin"))
         {
-            error(request, response,"Ви не адміністратор");
+            error(request, response,"Please, login as admin");
         }
         else
         {
@@ -157,7 +159,8 @@ public class FrontControllerServlet extends HttpServlet {
             error(request,response, err.getMessage());
         }
 
-        toMyOrder(request, response);
+        //toMyOrder(request, response);
+        response.sendRedirect("toMyOrder");
     }
 
     protected void addMenu(HttpServletRequest request, HttpServletResponse response)
@@ -166,12 +169,13 @@ public class FrontControllerServlet extends HttpServlet {
         boolean isAdmin = (boolean)request.getSession().getAttribute("isAdmin");
         if(!isAdmin)
         {
-            error(request, response,"Ви не адміністратор");
+            error(request, response,"Please, login as admin");
         }
         else {
             String name = request.getParameter("name");
             menuService.addMenu(name);
-            toMenuEditor(request, response);
+//            toMenuEditor(request, response);
+            response.sendRedirect("toMenuEditor");
         }
     }
 
@@ -181,13 +185,14 @@ public class FrontControllerServlet extends HttpServlet {
         boolean isAdmin = (boolean)request.getSession().getAttribute("isAdmin");
         if(!isAdmin)
         {
-            error(request, response,"Ви не адміністратор");
+            error(request, response,"Please, login as admin");
         }
         else {
             Integer menuId = Integer.parseInt(request.getParameter("menuId"));
             Menu menu = menuService.getMenuById(menuId);
             menuService.removeMenu(menu);
-            toMenuEditor(request, response);
+//            toMenuEditor(request, response);
+            response.sendRedirect("toMenuEditor");
         }
     }
 
@@ -197,7 +202,7 @@ public class FrontControllerServlet extends HttpServlet {
         boolean isAdmin = (boolean)request.getSession().getAttribute("isAdmin");
         if(!isAdmin)
         {
-            error(request, response,"Ви не адміністратор");
+            error(request, response,"Please, login as admin");
         }
         else {
             String name = request.getParameter("name");
@@ -207,7 +212,8 @@ public class FrontControllerServlet extends HttpServlet {
             Integer menuId = Integer.parseInt(request.getParameter("menuId"));
             Menu menu = menuService.getMenuById(menuId);
             menuService.addMenuElement(menu, name, imageUrl, price, description);
-            toMenuEditor(request, response);
+//            toMenuEditor(request, response);
+            response.sendRedirect("toMenuEditor");
         }
     }
 
@@ -217,12 +223,13 @@ public class FrontControllerServlet extends HttpServlet {
         boolean isAdmin = (boolean)request.getSession().getAttribute("isAdmin");
         if(!isAdmin)
         {
-            error(request, response,"Ви не адміністратор");
+            error(request, response,"Please, login as admin");
         }
         else {
             Map<String,String[]> params = request.getParameterMap();
             menuService.removeMenuElement(params);
-            toMenuEditor(request, response);
+//            toMenuEditor(request, response);
+            response.sendRedirect("toMenuEditor");
         }
     }
 
@@ -243,7 +250,7 @@ public class FrontControllerServlet extends HttpServlet {
         boolean isAdmin = (boolean)request.getSession().getAttribute("isAdmin");
         if(!isAdmin)
         {
-            error(request, response,"Ви не адміністратор");
+            error(request, response,"Please, login as admin");
         }
         else{
             Collection<Order> orders = orderService.getAllOrders();
@@ -260,7 +267,7 @@ public class FrontControllerServlet extends HttpServlet {
     {
         if(!(boolean)request.getSession().getAttribute("isAdmin"))
         {
-            error(request, response,"Ви не адміністратор");
+            error(request, response,"Please, login as admin");
         }
         else{
             Integer orderId = Integer.parseInt(request.getParameter("orderId"));
@@ -274,7 +281,8 @@ public class FrontControllerServlet extends HttpServlet {
             throws ServletException, IOException
     {
         request.getSession().setAttribute("tableNumber",request.getParameter("tableNumber"));
-        toMyOrder(request, response);
+        //toMyOrder(request, response);
+        response.sendRedirect("toMyOrder");
     }
 
     protected void error(HttpServletRequest request, HttpServletResponse response, String message) throws ServletException, IOException {

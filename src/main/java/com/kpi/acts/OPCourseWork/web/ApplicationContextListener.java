@@ -2,6 +2,7 @@ package com.kpi.acts.OPCourseWork.web;
 
 import com.kpi.acts.OPCourseWork.dao.DaoFactory;
 import com.kpi.acts.OPCourseWork.dao.inmemory.InMemoryDatabase;
+import com.kpi.acts.OPCourseWork.dao.inmemory.InMemoryTestData;
 import com.kpi.acts.OPCourseWork.service.MenuService;
 import com.kpi.acts.OPCourseWork.service.MenuServiceImplementation;
 import com.kpi.acts.OPCourseWork.service.OrderService;
@@ -15,6 +16,8 @@ public class ApplicationContextListener implements ServletContextListener {
 
         InMemoryDatabase database = new InMemoryDatabase();
         DaoFactory daoFactory = database.getDaoFactory();
+
+        InMemoryTestData.generateTestData(database);
 
         MenuService menuService = new MenuServiceImplementation(daoFactory);
         sce.getServletContext().setAttribute("menuService", menuService);

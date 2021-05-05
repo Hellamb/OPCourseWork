@@ -10,12 +10,10 @@ import java.util.TreeMap;
 
 public class InMemoryDatabase {
 
-    Map<Integer, MenuElement> menuElements;
     Map<Integer, Menu> menu;
     Map<Integer, Order> order;
 
     public InMemoryDatabase() {
-        menuElements = new TreeMap<>();
         menu = new TreeMap<>();
         order = new TreeMap<>();
     }

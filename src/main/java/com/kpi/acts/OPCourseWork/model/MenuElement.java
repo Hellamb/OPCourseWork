@@ -60,13 +60,4 @@ public class MenuElement {
         return Objects.hash(name, imageUrl, price);
     }
 
-    @Override
-    public String toString() {
-        return "MenuElement{" +
-                "name='" + name + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", price=" + price +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

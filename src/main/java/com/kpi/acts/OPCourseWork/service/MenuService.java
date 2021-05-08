@@ -8,7 +8,6 @@ import java.util.Map;
 
 public interface MenuService {
     Collection<Menu> getAllMenus();
-    Collection<MenuElement> getAllMenuElements(Menu menu);
     Menu getMenuById(Integer menuId);
     void removeMenu(Menu menu);
     void removeMenuElement(Map<String,String[]> params);

@@ -20,11 +20,6 @@ public class MenuServiceImplementation implements MenuService{
     }
 
     @Override
-    public Collection<MenuElement> getAllMenuElements(Menu menu) {
-        return menu.getMenuElementsList();
-    }
-
-    @Override
     public Menu getMenuById(Integer menuId) {
         return daoFactory.getMenuDao().get(menuId);
     }

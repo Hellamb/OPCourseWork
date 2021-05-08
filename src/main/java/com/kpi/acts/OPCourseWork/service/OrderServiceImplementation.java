@@ -21,10 +21,6 @@ public class OrderServiceImplementation implements OrderService{
         return daoFactory.getOrderDao().findAll();
     }
 
-    @Override
-    public HashMap<MenuElement, Integer> getAllOrderedElements(Order order) {
-        return order.getOrderedElements();
-    }
 
     @Override
     public Order getOrderById(Integer orderId) {

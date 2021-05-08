@@ -14,13 +14,10 @@ public class FrontControllerServlet extends HttpServlet {
 
     OrderService orderService;
     MenuService menuService;
-    Boolean isTestData;
 
     public void init(ServletConfig config) throws ServletException {
         orderService = (OrderService) config.getServletContext().getAttribute("orderService");
         menuService = (MenuService) config.getServletContext().getAttribute("menuService");
-
-        isTestData = false;
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -92,16 +89,6 @@ public class FrontControllerServlet extends HttpServlet {
         if(menus != null) {
             request.setAttribute("menus", menus);
         }
-//        if(! isTestData){
-//            isTestData = true;
-//            menuService.addMenu("Dishes");
-//            for (Menu menu: menus)
-//            {
-//                menuService.addMenuElement(menu,"Potato", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiOh-exQ8yWBtkDCv0MTjTbHboqkRDwJOtnQ&usqp=CAU", 3,"Delicious fried potatoes are an incredibly popular recipe. And this is more true than ever, because the recipe for fried potatoes is simple, always delicious and infinitely varied. Fried potatoes with onions and fried potatoes with bacon, fried young potatoes with garlic, fried potatoes with an egg and fried potatoes with stew are recipes familiar and loved from childhood, when fried potatoes appeared on the table so often. A recipe with a photo will remind you of the options for its preparation and offer new ones, no less tasty.\n");
-//                menuService.addMenuElement(menu,"Pizza", "https://media.dominos.ua/__sized__/menu/product_osg_image_category/2020/12/28/Vetchina_i_griby_-thumbnail-960x960-70.jpg", 5,"Pizza is a national Italian dish, which is a round open flatbread topped with melted cheese (usually mozzarella) and tomatoes. Cheese is by far the main ingredient in pizza. The rest of the ingredients differ depending on the type of pizza. Today, pizza is one of the most popular dishes in the world.\n");
-//                menuService.addMenuElement(menu,"Soup", "https://www.fifteenspatulas.com/wp-content/uploads/2016/02/Chicken-Noodle-Soup-Fifteen-Spatulas-3-640x427.jpg", 4,"This quick Chicken Noodle Soup recipe is perfect when you want a hot bowl of comfort but don’t want to slave over the stove for hours. It has the simple, clean flavors you expect from this classic soup.");
-//            }
-//        }
         request.getRequestDispatcher("/WEB-INF/jsp/menu.jsp").forward(request, response);
     }
 
